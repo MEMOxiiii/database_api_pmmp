@@ -493,3 +493,14 @@ Database: All data is stored in hexo_stats.db, shared across all plugins using D
 Performance: SQLite is used for simplicity. For large servers, consider switching to MySQL for better performance.
 Backup: Regularly back up hexo_stats.db to prevent data loss.
 ```
+
+| الدالة | الوصف | المعايير | القيمة المُرجعة |
+|--------|-------|-----------|------------------|
+| `addWin(Player $player, string $game): void` | تسجل انتصارًا للاعب في اللعبة المحددة. | `$player`: كائن اللاعب.<br>`$game`: معرف اللعبة (مثل "SkyWars"). | لا شيء |
+| `addLoss(Player $player, string $game): void` | تسجل خسارة للاعب في اللعبة المحددة. | `$player`, `$game` | لا شيء |
+| `addPoints(Player $player, string $game, int $points): void` | تضيف نقاطًا لسجل اللاعب في اللعبة المحددة. | `$player`, `$game`, `$points`: عدد النقاط لإضافتها. | لا شيء |
+| `getWins(Player $player, string $game): int` | تسترجع عدد الانتصارات للاعب في اللعبة المحددة. | `$player`, `$game` | عدد صحيح (عدد الانتصارات). |
+| `getLosses(Player $player, string $game): int` | تسترجع عدد الخسائر للاعب في اللعبة المحددة. | `$player`, `$game` | عدد صحيح (عدد الخسائر). |
+| `getPoints(Player $player, string $game): int` | تسترجع إجمالي النقاط للاعب في اللعبة المحددة. | `$player`, `$game` | عدد صحيح (إجمالي النقاط). |
+| `getPlayerStats(Player $player, string $game): array` | تسترجع جميع إحصائيات اللاعب في اللعبة المحددة. | `$player`, `$game` | مصفوفة تحتوي على: `wins`, `losses`, `points`. |
+| `displayStats(Player $player, string $game): void` | تعرض إحصائيات اللاعب في الدردشة للعبة المحددة. | `$player`, `$game` | لا شيء |
