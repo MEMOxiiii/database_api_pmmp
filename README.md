@@ -493,7 +493,8 @@ Database: All data is stored in hexo_stats.db, shared across all plugins using D
 Performance: SQLite is used for simplicity. For large servers, consider switching to MySQL for better performance.
 Backup: Regularly back up hexo_stats.db to prevent data loss.
 ```
-```
+
+
 | Method | Description | Parameters | Return Value |
 |--------|-------------|------------|--------------|
 | addWin(Player $player, string $game): void | Records a win for the player in the specified game. | $player: The player object.<br>$game: Game identifier (e.g., "SkyWars"). | None |
@@ -508,7 +509,7 @@ Backup: Regularly back up hexo_stats.db to prevent data loss.
 
 
 
-
+===============================================================================================================================================
 
 
 
