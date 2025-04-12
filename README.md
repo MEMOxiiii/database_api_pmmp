@@ -83,7 +83,7 @@ This section provides detailed instructions on how to call DatabaseAPI methods, 
 1. Getting the DatabaseAPI Instance
 To call any method, first get the DatabaseAPI instance:
 
-```
+```php
 use Hexo\DatabaseAPI;
 
 $db = DatabaseAPI::getInstance();
@@ -100,21 +100,21 @@ public function onGameEnd(Player $player, bool $won): void {
 Use addWin to record a win when a player wins a match.
 
 Example (SkyWars):
-```
+```php
 if ($won) {
     $db->addWin($player, "SkyWars"); // Adds 1 win for SkyWars
     $player->sendMessage("§aCongratulations! You won SkyWars!");
 }
 ```
 Example (EggWars):
-```
+```php
 if ($won) {
     $db->addWin($player, "EggWars"); // Adds 1 win for EggWars
     $player->sendMessage("§aYou won EggWars!");
 }
 ```
 Example (BedWars):
-```
+```php
 if ($won) {
     $db->addWin($player, "BedWars"); // Adds 1 win for BedWars
     $player->sendMessage("§aVictory in BedWars!");
@@ -124,17 +124,17 @@ if ($won) {
 Use getWins to retrieve the number of wins for a player in a specific game.
 
 Example (SkyWars):
-```
+```php
 $wins = $db->getWins($player, "SkyWars");
 $player->sendMessage("§eYour SkyWars wins: §f$wins");
 ```
 Example (EggWars):
-```
+```php
 $wins = $db->getWins($player, "EggWars");
 $player->sendMessage("§eYour EggWars wins: §f$wins");
 ```
 Example (BedWars):
-```
+```php
 $wins = $db->getWins($player, "BedWars");
 $player->sendMessage("§eYour BedWars wins: §f$wins");
 ```
@@ -145,7 +145,7 @@ Returns: An integer (e.g., 5 for 5 wins). Returns 0 if no wins are recorded.
 Use addLoss to record a loss when a player loses a match.
 
 Example (SkyWars):
-```
+```php
 if (!$won) {
     $db->addLoss($player, "SkyWars"); // Adds 1 loss for SkyWars
     $player->sendMessage("§cBetter luck next time!");
@@ -153,24 +153,24 @@ if (!$won) {
 ```
 Example (EggWars):
 
-```
+```php
 
 $db->addLoss($player, "EggWars"); // Adds 1 loss for EggWars
 ```
 Example (BedWars):
-```
+```php
 $db->addLoss($player, "BedWars"); // Adds 1 loss for BedWars
 ```
 5. Adding Points (addPoints)
 Use addPoints to add points to a player’s record (e.g., for rewards).
 
 Example (SkyWars):
-```
+```php
 $db->addPoints($player, "SkyWars", 50); // Adds 50 points for SkyWars
 $player->sendMessage("§aYou earned 50 points!");
 ```
 Example (EggWars):
-```
+```php
 $db->addPoints($player, "EggWars", 30); // Adds 30 points for EggWars
 ```
 Example (BedWars):
@@ -181,7 +181,7 @@ $db->addPoints($player, "BedWars", 20); // Adds 20 points for BedWars
 Use getPlayerStats to get all stats (wins, losses, points) as an array.
 
 Example (SkyWars):
-```
+```php
 $stats = $db->getPlayerStats($player, "SkyWars");
 $player->sendMessage("§aSkyWars Stats:");
 $player->sendMessage("§eWins: §f{$stats['wins']}");
@@ -189,12 +189,12 @@ $player->sendMessage("§eLosses: §f{$stats['losses']}");
 $player->sendMessage("§ePoints: §f{$stats['points']}");
 ```
 Example (EggWars):
-```
+```php
 $stats = $db->getPlayerStats($player, "EggWars");
 $player->sendMessage("§aEggWars Stats: Wins: {$stats['wins']}, Losses: {$stats['losses']}, Points: {$stats['points']}");
 ```
 Example (BedWars):
-```
+```php
 $stats = $db->getPlayerStats($player, "BedWars");
 $player->sendMessage("§aBedWars Stats: Wins: {$stats['wins']}, Losses: {$stats['losses']}, Points: {$stats['points']}");
 ```
@@ -202,7 +202,7 @@ $player->sendMessage("§aBedWars Stats: Wins: {$stats['wins']}, Losses: {$stats[
 Use displayStats to show a pre-formatted stats message in chat.
 
 Example (SkyWars):
-```
+```php
 $db->displayStats($player, "SkyWars");
 Output:
 /.text
@@ -213,12 +213,12 @@ Points: 150
 ./
 ```
 Example (EggWars):
-```
+```php
 $db->displayStats($player, "EggWars");
 ```
 
 Example (BedWars):
-```
+```php
 $db->displayStats($player, "BedWars");
 ```
 
@@ -226,7 +226,7 @@ $db->displayStats($player, "BedWars");
 You can call methods in a command to show stats on demand.
 
 Example (SkyWars Command):
-```
+```php
 public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
     if ($command->getName() === "skywars" && $sender instanceof Player) {
         $db = DatabaseAPI::getInstance();
@@ -273,7 +273,7 @@ commands:
     usage: /skywars <stats|wins>
 ```
 SkyWars.php:
-```
+```php
 <?php
 namespace Hexo;
 
@@ -335,7 +335,7 @@ depend: [DatabaseAPI]
 description: EggWars game for Hexo server
 ```
 EggWars.php:
-```
+```php
 <?php
 namespace Hexo;
 
@@ -378,7 +378,7 @@ depend: [DatabaseAPI]
 description: BedWars game for Hexo server
 ```
 BedWars.php:
-```
+```php
 <?php
 namespace Hexo;
 
@@ -425,7 +425,7 @@ commands:
     usage: /stats
 ```
 Lobby.php:
-```
+```php
 <?php
 namespace Hexo;
 
@@ -469,7 +469,7 @@ Missing Dependency:
 Ensure depend: [DatabaseAPI] is in your plugin.yml. Without it, your plugin may crash if DatabaseAPI is not loaded.
 Calling Methods Too Early:
 Don’t call DatabaseAPI::getInstance() in your plugin’s constructor or global scope. Use it inside methods or event handlers:
-```
+```php
 // Wrong
 private $db;
 public function __construct() {
@@ -483,7 +483,7 @@ public function onGameEnd(Player $player): void {
 ```
 Not Verifying Data:
 After calling addWin, verify with getWins to ensure the data was saved:
-```
+```php
 $db->addWin($player, "SkyWars");
 $wins = $db->getWins($player, "SkyWars");
 $player->sendMessage("Wins after adding: $wins"); // Should increase by 1
