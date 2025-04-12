@@ -67,7 +67,8 @@ $wins = $db->getWins($player, "SkyWars");
 Available Methods
 The following table lists all methods provided by DatabaseAPI, including their purpose, parameters, and return values.
 
-Method	Description	Parameters	Return Value
+Method	Description	Parameters	Return Value 
+```php 
 addWin(Player $player, string $game): void	Records a win for the player in the specified game.	$player: The player object.<br>$game: Game identifier (e.g., "SkyWars").	None
 addLoss(Player $player, string $game): void	Records a loss for the player in the specified game.	$player, $game	None
 addPoints(Player $player, string $game, int $points): void	Adds points to the player’s record for the specified game.	$player, $game, $points: Number of points to add.	None
@@ -78,280 +79,154 @@ getPlayerStats(Player $player, string $game): array	Retrieves all stats for the 
 displayStats(Player $player, string $game): void	Displays the player’s stats in chat for the specified game.	$player, $game	None
 Calling Methods: Step-by-Step
 This section provides detailed instructions on how to call DatabaseAPI methods, with examples for BedWars, EggWars, and SkyWars.
-
+```
 1. Getting the DatabaseAPI Instance
 To call any method, first get the DatabaseAPI instance:
 
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 use Hexo\DatabaseAPI;
 
 $db = DatabaseAPI::getInstance();
 Where to use: Inside methods or event handlers (e.g., onGameEnd, onCommand) where you need to interact with the database.
 Example: In a SkyWars plugin:
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
+```
 public function onGameEnd(Player $player, bool $won): void {
     $db = DatabaseAPI::getInstance();
     // Call methods here
 }
+```
 2. Recording Wins (addWin)
 Use addWin to record a win when a player wins a match.
 
 Example (SkyWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 if ($won) {
     $db->addWin($player, "SkyWars"); // Adds 1 win for SkyWars
     $player->sendMessage("§aCongratulations! You won SkyWars!");
 }
+```
 Example (EggWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 if ($won) {
     $db->addWin($player, "EggWars"); // Adds 1 win for EggWars
     $player->sendMessage("§aYou won EggWars!");
 }
+```
 Example (BedWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 if ($won) {
     $db->addWin($player, "BedWars"); // Adds 1 win for BedWars
     $player->sendMessage("§aVictory in BedWars!");
 }
+```
 3. Retrieving Wins (getWins)
 Use getWins to retrieve the number of wins for a player in a specific game.
 
 Example (SkyWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $wins = $db->getWins($player, "SkyWars");
 $player->sendMessage("§eYour SkyWars wins: §f$wins");
+```
 Example (EggWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $wins = $db->getWins($player, "EggWars");
 $player->sendMessage("§eYour EggWars wins: §f$wins");
+```
 Example (BedWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $wins = $db->getWins($player, "BedWars");
 $player->sendMessage("§eYour BedWars wins: §f$wins");
+```
+
 When to use: After a match, in a /stats command, or when a player joins the lobby.
 Returns: An integer (e.g., 5 for 5 wins). Returns 0 if no wins are recorded.
 4. Recording Losses (addLoss)
 Use addLoss to record a loss when a player loses a match.
 
 Example (SkyWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 if (!$won) {
     $db->addLoss($player, "SkyWars"); // Adds 1 loss for SkyWars
     $player->sendMessage("§cBetter luck next time!");
 }
+```
 Example (EggWars):
 
-php
+```
 
-Collapse
-
-Wrap
-
-Copy
 $db->addLoss($player, "EggWars"); // Adds 1 loss for EggWars
+```
 Example (BedWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->addLoss($player, "BedWars"); // Adds 1 loss for BedWars
+```
 5. Adding Points (addPoints)
 Use addPoints to add points to a player’s record (e.g., for rewards).
 
 Example (SkyWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->addPoints($player, "SkyWars", 50); // Adds 50 points for SkyWars
 $player->sendMessage("§aYou earned 50 points!");
+```
 Example (EggWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->addPoints($player, "EggWars", 30); // Adds 30 points for EggWars
+```
 Example (BedWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->addPoints($player, "BedWars", 20); // Adds 20 points for BedWars
+```
 6. Retrieving All Stats (getPlayerStats)
 Use getPlayerStats to get all stats (wins, losses, points) as an array.
 
 Example (SkyWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $stats = $db->getPlayerStats($player, "SkyWars");
 $player->sendMessage("§aSkyWars Stats:");
 $player->sendMessage("§eWins: §f{$stats['wins']}");
 $player->sendMessage("§eLosses: §f{$stats['losses']}");
 $player->sendMessage("§ePoints: §f{$stats['points']}");
+```
 Example (EggWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $stats = $db->getPlayerStats($player, "EggWars");
 $player->sendMessage("§aEggWars Stats: Wins: {$stats['wins']}, Losses: {$stats['losses']}, Points: {$stats['points']}");
+```
 Example (BedWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $stats = $db->getPlayerStats($player, "BedWars");
 $player->sendMessage("§aBedWars Stats: Wins: {$stats['wins']}, Losses: {$stats['losses']}, Points: {$stats['points']}");
+```
 7. Displaying Stats in Chat (displayStats)
 Use displayStats to show a pre-formatted stats message in chat.
 
 Example (SkyWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->displayStats($player, "SkyWars");
 Output:
-
-text
-
-Collapse
-
-Wrap
-
-Copy
+/.text
 Your stats in SkyWars:
 Wins: 5
 Losses: 3
 Points: 150
+./
+```
 Example (EggWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->displayStats($player, "EggWars");
+```
+
 Example (BedWars):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->displayStats($player, "BedWars");
+```
+
 8. Using Methods in Commands
 You can call methods in a command to show stats on demand.
 
 Example (SkyWars Command):
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
     if ($command->getName() === "skywars" && $sender instanceof Player) {
         $db = DatabaseAPI::getInstance();
@@ -368,32 +243,24 @@ public function onCommand(CommandSender $sender, Command $command, string $label
     }
     return false;
 }
+```
 Add to plugin.yml:
 
-yaml
+```yaml
 
-Collapse
-
-Wrap
-
-Copy
 commands:
   skywars:
     description: Manage SkyWars stats
     usage: /skywars <stats|wins>
+```
 Example Integrations
 Below are complete examples showing how to integrate DatabaseAPI into different plugins.
 
 SkyWars Plugin
 plugin.yml:
 
-yaml
+```yaml
 
-Collapse
-
-Wrap
-
-Copy
 name: SkyWars
 version: 1.0.0
 main: Hexo\SkyWars
@@ -404,15 +271,9 @@ commands:
   skywars:
     description: Manage SkyWars stats
     usage: /skywars <stats|wins>
+```
 SkyWars.php:
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 <?php
 namespace Hexo;
 
@@ -460,31 +321,21 @@ class SkyWars extends PluginBase implements Listener {
         return false;
     }
 }
+```
 EggWars Plugin
 plugin.yml:
 
-yaml
+```yaml
 
-Collapse
-
-Wrap
-
-Copy
 name: EggWars
 version: 1.0.0
 main: Hexo\EggWars
 api: 5.0.0
 depend: [DatabaseAPI]
 description: EggWars game for Hexo server
+```
 EggWars.php:
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 <?php
 namespace Hexo;
 
@@ -513,31 +364,21 @@ class EggWars extends PluginBase implements Listener {
         $player->sendMessage("§eYour EggWars wins: §f$wins");
     }
 }
+```
 BedWars Plugin
 plugin.yml:
 
-yaml
+```yaml
 
-Collapse
-
-Wrap
-
-Copy
 name: BedWars
 version: 1.0.0
 main: Hexo\BedWars
 api: 5.0.0
 depend: [DatabaseAPI]
 description: BedWars game for Hexo server
+```
 BedWars.php:
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 <?php
 namespace Hexo;
 
@@ -566,16 +407,12 @@ class BedWars extends PluginBase implements Listener {
         $player->sendMessage("§eYour BedWars wins: §f$wins");
     }
 }
+```
 Lobby Plugin (Unified Stats Display)
 plugin.yml:
 
-yaml
+```yaml
 
-Collapse
-
-Wrap
-
-Copy
 name: Lobby
 version: 1.0.0
 main: Hexo\Lobby
@@ -586,15 +423,9 @@ commands:
   stats:
     description: Show player stats
     usage: /stats
+```
 Lobby.php:
-
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 <?php
 namespace Hexo;
 
@@ -620,58 +451,39 @@ class Lobby extends PluginBase {
         return false;
     }
 }
+```
 Common Mistakes to Avoid
 Incorrect Game Identifier:
 Use the exact game name (e.g., "SkyWars", not "skywars"). Case matters!
 Wrong:
-php
+```php
 
-Collapse
-
-Wrap
-
-Copy
 $db->getWins($player, "skywars"); // Creates a new record
+```
 Correct:
-php
+```php
 
-Collapse
-
-Wrap
-
-Copy
 $db->getWins($player, "SkyWars");
+```
 Missing Dependency:
 Ensure depend: [DatabaseAPI] is in your plugin.yml. Without it, your plugin may crash if DatabaseAPI is not loaded.
 Calling Methods Too Early:
 Don’t call DatabaseAPI::getInstance() in your plugin’s constructor or global scope. Use it inside methods or event handlers:
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 // Wrong
 private $db;
 public function __construct() {
     $this->db = DatabaseAPI::getInstance();
 }
-
 // Correct
 public function onGameEnd(Player $player): void {
     $db = DatabaseAPI::getInstance();
     $db->addWin($player, "SkyWars");
 }
+```
 Not Verifying Data:
 After calling addWin, verify with getWins to ensure the data was saved:
-php
-
-Collapse
-
-Wrap
-
-Copy
+```
 $db->addWin($player, "SkyWars");
 $wins = $db->getWins($player, "SkyWars");
 $player->sendMessage("Wins after adding: $wins"); // Should increase by 1
@@ -680,3 +492,4 @@ Game Identifier: Use consistent game names (e.g., "SkyWars", "EggWars", "BedWars
 Database: All data is stored in hexo_stats.db, shared across all plugins using DatabaseAPI.
 Performance: SQLite is used for simplicity. For large servers, consider switching to MySQL for better performance.
 Backup: Regularly back up hexo_stats.db to prevent data loss.
+```
