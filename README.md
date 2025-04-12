@@ -493,6 +493,24 @@ Database: All data is stored in hexo_stats.db, shared across all plugins using D
 Performance: SQLite is used for simplicity. For large servers, consider switching to MySQL for better performance.
 Backup: Regularly back up hexo_stats.db to prevent data loss.
 ```
+```
+| Method | Description | Parameters | Return Value |
+|--------|-------------|------------|--------------|
+| addWin(Player $player, string $game): void | Records a win for the player in the specified game. | $player: The player object.<br>$game: Game identifier (e.g., "SkyWars"). | None |
+| addLoss(Player $player, string $game): void | Records a loss for the player in the specified game. | $player, $game | None |
+| addPoints(Player $player, string $game, int $points): void | Adds points to the player’s record for the specified game. | $player, $game, $points: Number of points to add. | None |
+| getWins(Player $player, string $game): int | Retrieves the number of wins for the player in the specified game. | $player, $game | Integer (number of wins). |
+| getLosses(Player $player, string $game): int | Retrieves the number of losses for the player in the specified game. | $player, $game | Integer (number of losses). |
+| getPoints(Player $player, string $game): int | Retrieves the total points for the player in the specified game. | $player, $game | Integer (total points). |
+| getPlayerStats(Player $player, string $game): array | Retrieves all stats for the player in the specified game. | $player, $game | Array with keys: wins, losses, points. |
+| displayStats(Player $player, string $game): void | Displays the player’s stats in chat for the specified game. | $player, $game | None |
+
+
+
+
+
+
+
 
 | الدالة | الوصف | المعايير | القيمة المُرجعة |
 |--------|-------|-----------|------------------|
